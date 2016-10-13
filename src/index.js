@@ -87,7 +87,8 @@ class ReactTooltip extends Component {
       currentTarget: null, // Current target of mouse event
       ariaProps: parseAria(props), // aria- and role attributes
       isEmptyTip: false,
-      disable: false
+      disable: false,
+      alterLocationIfCantFitIn: false
     }
 
     this.bind([
