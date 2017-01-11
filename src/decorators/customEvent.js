@@ -33,7 +33,7 @@ const setUntargetItems = function (currentTarget, targetArray) {
   }
 }
 
-let customListener
+// let customListener
 
 export default function (target) {
   target.prototype.isCustomEvent = function (ele) {
@@ -48,9 +48,9 @@ export default function (target) {
     const dataEventOff = ele.getAttribute('data-event-off') || eventOff
 
     dataEvent.split(' ').forEach(event => {
-      ele.removeEventListener(event, customListener)
-      customListener = checkStatus.bind(this, dataEventOff)
-      ele.addEventListener(event, customListener, false)
+      ele.removeEventListener(event, ele.myListener)
+      ele.myListener = checkStatus.bind(this, dataEventOff)
+      ele.addEventListener(event, ele.myListener, false)
     })
     if (dataEventOff) {
       dataEventOff.split(' ').forEach(event => {
@@ -66,7 +66,7 @@ export default function (target) {
     const dataEvent = event || ele.getAttribute('data-event')
     const dataEventOff = eventOff || ele.getAttribute('data-event-off')
 
-    ele.removeEventListener(dataEvent, customListener)
+    ele.removeEventListener(dataEvent, ele.myListener)
     if (dataEventOff) ele.removeEventListener(dataEventOff, this.hideTooltip)
   }
 }
